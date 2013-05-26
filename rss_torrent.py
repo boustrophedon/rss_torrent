@@ -20,9 +20,10 @@ SEED_RATIO = "50"
 
 def add_torrent(e):
 	#should check if entry.link is a valid url
-	subprocess.Popen( ["curl", "-s", e.link, "-o", TORRENT_DIR+e.title+".torrent"] )
+	torrent_file = TORRENT_DIR+e.title+".torrent"
+	subprocess.Popen( ["curl", "-s", e.link, "-o", torrent_file] )
 	#should check if this actually is a torrent file
-	subprocess.Popen( ['transmission-remote', '-a', e.title, '-sr', SEED_RATIO] )
+	subprocess.Popen( ['transmission-remote', '-a', torrent_file, '-sr', SEED_RATIO] )
 
 
 def check_feed(feed_url, last_checked):
@@ -73,7 +74,6 @@ def main():
 
 	updated_feeds = []
 
-	print(feeds)
 	for feed,timestamp in feeds:
 		timestamp = check_feed(feed,timestamp)
 		updated_feeds.append([feed,timestamp])
