@@ -1,0 +1,11 @@
+This is a little python script that will check rss feeds and download torrents from them automatically. Just put it in your crontab to run, say, every five minutes. e.g. "*/5 * * * * /usr/local/bin/rss_torrents.py". It is primarily intended for use with transmission-daemon but could be modified to work with other torrent clients fairly easily.
+
+Mostly this was just for fun; I could probably switched to a different torrent client that had support for rss with less difficulty.
+
+This is also rather fragile, and will probably break in any number of cases. i.e. if the rss feed is empty, if some folders don't exist, or if you're using a different version of python.
+
+Config is done in rss_torrents.py.
+- TORRENT_DIR defaults to ~/.cache/torrentfiles/ and contains downloaded .torrent files. It may be cleaned out at any time by the user.
+- FEED_FILE defaults to ~/.local/rss_torrents/feeds.csv and contains pairs of (rss feed url, timestamp when last checked). It should not be hand-edited.
+- NEW_FEEDS defaults to ~/.local/rss_torrents/new.txt and contains new rss feeds you want to track, one per line. You should edit this just by doing `echo "http://example.org/rss" >> ~/.local/rss_torrents/new.txt`. Once they are added to the feed, old lines will be removed.
+- SEED_RATIO defaults to 50 and is fairly obvious what it means. I wonder what happens if you set it to 0. That would be rather rude, so I haven't tried.
