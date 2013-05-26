@@ -21,7 +21,8 @@ SEED_RATIO = "50"
 def add_torrent(e):
 	#should check if entry.link is a valid url
 	torrent_file = TORRENT_DIR+e.title+".torrent"
-	subprocess.Popen( ["curl", "-s", e.link, "-o", torrent_file] )
+	p = subprocess.Popen( ["curl", "-s", e.link, "-o", torrent_file] )
+	p.wait()
 	#should check if this actually is a torrent file
 	subprocess.Popen( ['transmission-remote', '-a', torrent_file, '-sr', SEED_RATIO] )
 
