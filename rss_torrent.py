@@ -31,7 +31,6 @@ def check_feed(feed_url, last_checked):
 
 	feed = feedparser.parse(feed_url)
 
-	oldest = feed.entries[0]
 	for e in feed.entries:
 		entry_time = calendar.timegm(e.published_parsed)
 		if last_checked < entry_time:
@@ -40,7 +39,7 @@ def check_feed(feed_url, last_checked):
 		else:
 			break # this should work because the entries are supposed to be in chronological order.
 
-	last_checked = calendar.timegm(oldest.published_parsed)
+	last_checked = calendar.timegm(feed.entries[0].published_parsed)
 	return last_checked
 
 def check_new_feeds(rss_file):
