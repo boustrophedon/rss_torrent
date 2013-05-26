@@ -32,14 +32,14 @@ def check_feed(feed_url, last_checked):
 	feed = feedparser.parse(feed_url)
 
 	for e in feed.entries:
-		entry_time = calendar.timegm(e.published_parsed)
+		entry_time = calendar.timegm(e.updated_parsed)
 		if last_checked < entry_time:
 			add_torrent(e)
 			oldest = e
 		else:
 			break # this should work because the entries are supposed to be in chronological order.
 
-	last_checked = calendar.timegm(feed.entries[0].published_parsed)
+	last_checked = calendar.timegm(feed.entries[0].updated_parsed)
 	return last_checked
 
 def check_new_feeds(rss_file):
@@ -54,7 +54,7 @@ def check_new_feeds(rss_file):
 	return lines
 
 def parse_rss_csv(csv_file):
-	with open(csv_file, newline='') as f:
+	with open(csv_file, 'rb') as f:
 		reader = csv.reader(f)
 		rows = []
 		for row in reader:
@@ -62,7 +62,7 @@ def parse_rss_csv(csv_file):
 		return rows
 
 def write_rss_csv(feeds,csv_file):
-	with open(csv_file, 'w', newline='') as f:
+	with open(csv_file, 'wb') as f:
 		writer = csv.writer(f)
 		writer.writerows(feeds)
 
