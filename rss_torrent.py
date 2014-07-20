@@ -52,7 +52,7 @@ def check_feed(feed_url, last_checked, match_strings):
 	except IndexError:
 		#print("IndexError: "+feed_url+". Apparently there is no feed.entries[0]")
 
-		with open(HOME+"err.last", "w") as errfile:
+		with open(HOME+"/err.last", "w") as errfile:
 			errfile.write(str(feed))
 
 	return last_checked
