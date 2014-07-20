@@ -8,11 +8,12 @@ import subprocess
 
 
 HOME = os.path.expanduser("~")
+LOCAL_DIR = HOME+"/.local/rss_torrent/"
 ### Config
 # will probably error if these folders/files do not exist.
 TORRENT_DIR = HOME+"/.cache/rss_torrent/torrentfiles/"
-FEED_FILE = HOME+"/.local/rss_torrent/feeds.csv" 
-NEW_FEEDS = HOME+"/.local/rss_torrent/new.txt"
+FEED_FILE = LOCAL_DIR+"feeds.csv" 
+NEW_FEEDS = LOCAL_DIR+"new.txt"
 SEED_RATIO = "50"
 
 
@@ -52,7 +53,7 @@ def check_feed(feed_url, last_checked, match_strings):
 	except IndexError:
 		#print("IndexError: "+feed_url+". Apparently there is no feed.entries[0]")
 
-		with open(HOME+"/err.last", "w") as errfile:
+		with open(LOCAL_DIR+"err.last", "w") as errfile:
 			errfile.write(str(feed))
 
 	return last_checked
